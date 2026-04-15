@@ -1,0 +1,72 @@
+ #include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int *arr = NULL;
+    int size = 0, choice, i, newSize;
+
+    while (1)     
+    {
+        printf("\n--- Dynamic Array Operations ---");
+        printf("\n1. Create a new dynamic array");
+        printf("\n2. Add elements to array");
+        printf("\n3. Resize the array");
+        printf("\n4. Display array");
+        printf("\n5. Free and exit");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+        case 1:
+            printf("Enter size: ");
+            scanf("%d", &size);
+            arr = (int *)malloc(size * sizeof(int));
+            printf("Array created.\n");
+            break;
+
+        case 2:
+            if (arr == NULL)
+            {
+                printf("Create array first!\n");
+                break;
+            }
+            printf("Enter %d elements:\n", size);
+            for (i = 0; i < size; i++)
+        
+                scanf("%d", &arr[i]);
+            break;
+
+        case 3:
+            printf("Enter new size: ");
+            scanf("%d", &newSize);
+            arr = (int *)realloc(arr, newSize * sizeof(int));
+            size = newSize;
+            printf("Array resized.\n");
+            
+            
+            break;
+
+        case 4:
+            if (arr == NULL)
+            {
+                printf("Array is empty!\n");
+                break;
+            }
+            printf("Array elements:\n");
+            for (i = 0; i < size; i++)
+                printf("%d ", arr[i]);
+            printf("\n");
+            break;
+
+        case 5:
+            free(arr);
+            printf("Memory freed. Exiting...\n");
+            return 0;
+
+        default:
+            printf("Invalid choice!\n");
+        }
+    }
+}
