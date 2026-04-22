@@ -1,0 +1,134 @@
+#include <stdio.h>
+
+void write_file()
+{
+    char filename[100], ch;
+    FILE *fp;
+
+    printf("Enter filename: ");
+    scanf("%s", filename);
+
+    fp = fopen(filename, "w");
+    if (fp == NULL)
+    {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    printf("Enter text (end with #): ");
+    getchar();
+
+    while ((ch = getchar()) != '#')
+    {
+        fputc(ch, fp);
+    }
+
+    fclose(fp);
+}
+
+void read_file()
+{
+    char filename[100], ch;
+    FILE *fp;
+
+    printf("Enter filename: ");
+    scanf("%s", filename);
+
+    fp = fopen(filename, "r");
+    if (fp == NULL)
+    {
+        printf("File not found!\n");
+        return;
+    }
+
+    printf("\nFile content:\n");
+
+    while ((ch = fgetc(fp)) != EOF)
+    {
+        putchar(ch);
+    }
+
+    fclose(fp);
+}
+
+void append_file()
+{
+    char filename[100], ch [500];    
+    FILE *fp;
+
+    printf("Enter filename: ");
+    scanf("%s", filename);
+
+    fp = fopen(filename, "a");
+    if (fp == NULL)
+    {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    printf("Enter text to append (end with #): ");
+    getchar();
+
+   fgets(ch,sizeof(ch),stdin);
+   fprintf(fp,"%s",ch );
+
+    fclose(fp);
+}
+
+void delete_file()
+{
+    char filename[100];
+
+    printf("Enter filename to delete: ");
+    scanf("%s", filename);
+
+    if (remove(filename) == 0)
+        printf("File deleted successfully.\n");
+    else
+        printf("Error deleting file!\n");
+}
+void deletecontent()
+{
+    char filename[100];
+    FILE *fp;
+
+    printf("Enter filename: ");
+    scanf("%s", filename);
+
+    fp = fopen(filename, "w");
+    if (fp == NULL)
+    {
+        printf("Error opening file!\n");
+        return;
+    }
+}
+
+int main()
+{
+    int choice;
+
+    do
+    {
+        printf("\n--- Basic File Operations ---\n");
+        printf("1. Write File\n2. Read File\n3. Append File\n4. Delete File\n5.delete content\n6. Exit\n");
+
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1: write_file(); break;
+            case 2: read_file(); break;
+            case 3: append_file(); break;
+            case 4: delete_file(); break;
+            case 5: deletecontent();break;
+            default:
+          
+        printf("Enter a valid number between 1 and 5.");
+            
+        }
+
+    } while (choice != 6);
+
+    return 0;
+}
